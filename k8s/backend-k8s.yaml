@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: username_kamu/backend-tugas1:latest
+        image: muhiban/backend-tugas1:latest
         ports:
         - containerPort: 5000
         env:

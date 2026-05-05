@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: username_kamu/frontend-tugas1:latest
+        image: muhiban/frontend-tugas1:latest
         ports:
         - containerPort: 80
 ---
