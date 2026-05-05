@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud Catalog</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding: 20px; }
+        .card { background: #1e293b; margin: auto; padding: 20px; border-radius: 10px; width: 80%; max-width: 500px; }
+        .owner-info { color: #38bdf8; margin-bottom: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { background: #334155; margin: 10px 0; padding: 10px; border-radius: 5px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 id="title">Loading...</h1>
+        <div class="owner-info">
+            <p>User: <span id="owner-name"></span></p>
+            <p>NIM: <span id="owner-nim"></span></p>
+        </div>
+        <ul id="item-list"></ul>
+    </div>
+
+    <script>
+        // PENTING: Saat di Azure nanti, ganti localhost dengan FQDN/IP Public Backend
+        const API_URL = "/api";
+
+        async function fetchData() {
+            try {
+                const response = await fetch(`${API_URL}/info`);
+                const data = await response.json();
+                document.getElementById('title').innerText = data.judul_katalog;
+                document.getElementById('owner-name').innerText = data.pemilik;
+                document.getElementById('owner-nim').innerText = data.nim;
+                
+                const list = document.getElementById('item-list');
+                list.innerHTML = "";
+                data.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${item.name}</strong><br><small>${item.specs}</small>`;
+                    list.appendChild(li);
+                });
+            } catch (err) {
+                document.getElementById('title').innerText = "Koneksi Backend Gagal";
+            }
+        }
+        fetchData();
+    </script>
+</body>
+</html>

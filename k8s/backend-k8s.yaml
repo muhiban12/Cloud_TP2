@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: username_kamu/backend-tugas1:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: NAMA_PRAKTIKAN
+          value: "Muhiban Fadlan Nursaid" # <--- Identity Injection
+        - name: NIM_PRAKTIKAN
+          value: "2400382"         # <--- Identity Injection
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - port: 5000
+    targetPort: 5000
