@@ -1,12 +1,12 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_USER = "username_kamu"
+        DOCKER_HUB_USER = "muhiban"
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/username/repo-kamu.git'
+                git branch: 'main', url: 'https://github.com/muhiban12/Cloud_TP2'
             }
         }
         stage('Build & Push') {
